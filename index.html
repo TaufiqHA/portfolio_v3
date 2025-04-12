@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taufiq Hidayah Abdullah | Web Developer</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#00FF00", secondary: "#121212" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    />
+    <style>
+      :where([class^="ri-"])::before {
+        content: "\f3c2";
+      }
+
+      :root {
+        --primary: #00ff00;
+        --secondary: #121212;
+        --dark-bg: #121212;
+        --darker-bg: #0a0a0a;
+        --light-text: #f8f8f8;
+        --gray-text: #a0a0a0;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--dark-bg);
+        color: var(--light-text);
+        overflow-x: hidden;
+      }
+
+      .glow {
+        text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+      }
+
+      .border-glow {
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+      }
+
+      .nav-link {
+        position: relative;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: var(--primary);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .typing-text::after {
+        content: "|";
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .floating-shape {
+        position: absolute;
+        border: 1px solid rgba(0, 255, 0, 0.3);
+        border-radius: 8px;
+        animation: float 8s infinite ease-in-out;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(5deg);
+        }
+      }
+
+      .scroll-indicator {
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-10px);
+        }
+        60% {
+          transform: translateY(-5px);
+        }
+      }
+
+      .skill-bar {
+        position: relative;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .skill-progress {
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          rgba(0, 255, 0, 0.7),
+          rgba(0, 255, 0, 0.9)
+        );
+        border-radius: 4px;
+        width: 0;
+        transition: width 1.5s ease-in-out;
+      }
+
+      .project-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .project-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .timeline-dot {
+        position: relative;
+        z-index: 2;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(0, 255, 0, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(0, 255, 0, 0);
+        }
+      }
+
+      /* Untuk mode mobile - hilangkan animasi pulse */
+      @media (max-width: 767px) {
+        .timeline-dot {
+          display: none;
+        }
+      }
+
+      .timeline-line {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 255, 0, 0.3),
+          rgba(0, 255, 0, 0.7)
+        );
+        transform: translateX(-50%);
+      }
+
+      @media (max-width: 767px) {
+        .timeline-line {
+          left: 15px; /* Sesuaikan jarak dari kiri sesuai kebutuhan */
+          transform: none; /* Hapus transform translateX karena tidak diperlukan lagi */
+        }
+      }
+
+      .timeline-item {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+
+      .timeline-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .form-input {
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        color: var(--light-text);
+        transition: border-color 0.3s ease;
+        outline: none;
+      }
+
+      .form-input:focus {
+        border-color: var(--primary);
+      }
+
+      .social-icon {
+        transition: transform 0.3s ease, color 0.3s ease;
+      }
+
+      .social-icon:hover {
+        transform: scale(1.2);
+        color: var(--primary);
+      }
+
+      /* Custom cursor */
+      .cursor {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: rgba(0, 255, 0, 0.5);
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        transition: width 0.3s, height 0.3s, background-color 0.3s;
+        mix-blend-mode: screen;
+      }
+
+      .cursor-follower {
+        position: fixed;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid rgba(0, 255, 0, 0.5);
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        z-index: 9998;
+        transition: 0.1s;
+      }
+
+      /* Hide default scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--darker-bg);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0, 255, 0, 0.5);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 255, 0, 0.7);
+      }
+
+      /* Remove input number arrows */
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav
+      class="fixed top-0 left-0 w-full z-50 bg-secondary bg-opacity-80 backdrop-blur-md"
+    >
+      <div
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a href="#" class="text-primary font-['Pacifico'] text-2xl"
+          >Taufiq HA</a
+        >
+
+        <div class="hidden md:flex items-center space-x-8">
+          <a
+            href="#home"
+            class="nav-link text-white hover:text-primary transition-colors"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="nav-link text-white hover:text-primary transition-colors"
+            >About</a
+          >
+          <a
+            href="#projects"
+            class="nav-link text-white hover:text-primary transition-colors"
+            >Projects</a
+          >
+          <a
+            href="#experience"
+            class="nav-link text-white hover:text-primary transition-colors"
+            >Experience</a
+          >
+          <a
+            href="#contact"
+            class="nav-link text-white hover:text-primary transition-colors"
+            >Contact</a
+          >
+        </div>
+
+        <button
+          class="md:hidden w-10 h-10 flex items-center justify-center text-white"
+          id="menu-toggle"
+        >
+          <i class="ri-menu-line ri-lg"></i>
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-secondary bg-opacity-95 w-full"
+      >
+        <div class="container mx-auto px-6 py-4 flex flex-col space-y-4">
+          <a
+            href="#home"
+            class="text-white hover:text-primary transition-colors py-2"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="text-white hover:text-primary transition-colors py-2"
+            >About</a
+          >
+          <a
+            href="#projects"
+            class="text-white hover:text-primary transition-colors py-2"
+            >Projects</a
+          >
+          <a
+            href="#experience"
+            class="text-white hover:text-primary transition-colors py-2"
+            >Experience</a
+          >
+          <a
+            href="#contact"
+            class="text-white hover:text-primary transition-colors py-2"
+            >Contact</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16"
+    >
+      <!-- Floating shapes -->
+      <div
+        class="floating-shape w-32 h-32 top-1/4 left-1/4 opacity-20"
+        style="animation-delay: 0s"
+      ></div>
+      <div
+        class="floating-shape w-24 h-24 bottom-1/4 right-1/3 opacity-15"
+        style="animation-delay: 1s"
+      ></div>
+      <div
+        class="floating-shape w-40 h-40 top-1/3 right-1/4 opacity-10"
+        style="animation-delay: 2s"
+      ></div>
+      <div
+        class="floating-shape w-20 h-20 bottom-1/3 left-1/3 opacity-25"
+        style="animation-delay: 3s"
+      ></div>
+
+      <div class="container mx-auto px-6 z-10">
+        <div class="flex flex-col items-center text-center">
+          <p class="text-gray-400 mb-4 tracking-wider">HELLO, I'M</p>
+          <h1 class="text-5xl md:text-7xl font-bold mb-6">
+            <span class="text-white">Taufiq</span>
+            <span class="text-primary glow">Hidayah Abdullah</span>
+          </h1>
+          <div class="text-2xl md:text-4xl mb-8 h-12">
+            <span id="typing-text" class="typing-text"></span>
+          </div>
+          <p class="text-gray-300 max-w-2xl mb-10 text-lg">
+            I craft exceptional digital experiences with clean code and creative
+            solutions. Specializing in modern web technologies to bring your
+            ideas to life.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a
+              href="#projects"
+              class="bg-primary text-secondary px-8 py-3 rounded-button font-medium hover:bg-opacity-80 transition-all border-2 border-primary whitespace-nowrap"
+              >View My Work</a
+            >
+            <a
+              href="#contact"
+              class="border-2 border-primary text-primary px-8 py-3 rounded-button font-medium hover:bg-primary hover:bg-opacity-10 transition-all whitespace-nowrap"
+              >Contact Me</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="hidden lg:inline-block absolute bottom-10 left-1/2 transform -translate-x-1/2 scroll-indicator"
+      >
+        <div
+          class="w-8 h-12 border-2 border-primary rounded-full flex justify-center"
+        >
+          <div
+            class="w-2 h-2 bg-primary rounded-full mt-2 animate-bounce"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-secondary bg-opacity-50">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            About <span class="text-primary glow">Me</span>
+          </h2>
+          <div class="w-20 h-1 bg-primary mx-auto"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="order-2 lg:order-1">
+            <h3 class="text-2xl font-bold mb-4">Who am I?</h3>
+            <p class="text-gray-300 mb-6">
+              I'm a passionate Web Developer with over 6 years of experience
+              creating innovative and responsive web applications. My journey in
+              web development began during my computer science studies, and I've
+              been hooked ever since.
+            </p>
+            <p class="text-gray-300 mb-8">
+              I specialize in front-end development with a strong foundation in
+              back-end technologies. My approach combines technical expertise
+              with creative problem-solving to deliver exceptional user
+              experiences that drive business growth.
+            </p>
+
+            <div class="mb-10">
+              <h4 class="text-xl font-semibold mb-4">My Skills</h4>
+
+              <div class="mb-4">
+                <div class="flex justify-between mb-2">
+                  <span>JavaScript/TypeScript</span>
+                  <span>95%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="95%"></div>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <div class="flex justify-between mb-2">
+                  <span>React/Next.js</span>
+                  <span>90%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="90%"></div>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <div class="flex justify-between mb-2">
+                  <span>Node.js/Express</span>
+                  <span>85%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="85%"></div>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <div class="flex justify-between mb-2">
+                  <span>UI/UX Design</span>
+                  <span>80%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="80%"></div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="text-xl font-semibold mb-4">Tech Stack</h4>
+              <div class="flex flex-wrap gap-4">
+                <div
+                  class="tech-icon w-12 h-12 flex items-center justify-center bg-darker-bg rounded-lg hover:scale-110 transition-transform"
+                >
+                  <i class="ri-html5-fill ri-2x text-[#E34F26]"></i>
+                </div>
+                <div
+                  class="tech-icon w-12 h-12 flex items-center justify-center bg-darker-bg rounded-lg hover:scale-110 transition-transform"
+                >
+                  <i class="ri-css3-fill ri-2x text-[#1572B6]"></i>
+                </div>
+                <div
+                  class="tech-icon w-12 h-12 flex items-center justify-center bg-darker-bg rounded-lg hover:scale-110 transition-transform"
+                >
+                  <i class="ri-javascript-fill ri-2x text-[#F7DF1E]"></i>
+                </div>
+                <div
+                  class="tech-icon w-12 h-12 flex items-center justify-center bg-darker-bg rounded-lg hover:scale-110 transition-transform"
+                >
+                  <i class="ri-reactjs-line ri-2x text-[#61DAFB]"></i>
+                </div>
+                <div
+                  class="tech-icon w-12 h-12 flex items-center justify-center bg-darker-bg rounded-lg hover:scale-110 transition-transform"
+                >
+                  <i class="ri-vuejs-line ri-2x text-[#4FC08D]"></i>
+                </div>
+                <div
+                  class="tech-icon w-12 h-12 flex items-center justify-center bg-darker-bg rounded-lg hover:scale-110 transition-transform"
+                >
+                  <i class="ri-nodejs-line ri-2x text-[#339933]"></i>
+                </div>
+                <div
+                  class="tech-icon w-12 h-12 flex items-center justify-center bg-darker-bg rounded-lg hover:scale-110 transition-transform"
+                >
+                  <i class="ri-database-2-line ri-2x text-[#4479A1]"></i>
+                </div>
+                <div
+                  class="tech-icon w-12 h-12 flex items-center justify-center bg-darker-bg rounded-lg hover:scale-110 transition-transform"
+                >
+                  <i class="ri-github-fill ri-2x text-white"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-1 lg:order-2 flex justify-center">
+            <div class="relative">
+              <div
+                class="absolute inset-0 bg-primary bg-opacity-20 rounded-lg transform rotate-6"
+              ></div>
+              <img
+                src="https://readdy.ai/api/search-image?query=professional%20portrait%20of%20a%20male%20web%20developer%20in%20his%2030s%20with%20a%20modern%20look%2C%20wearing%20dark%20clothes%2C%20high%20quality%20studio%20lighting%2C%20professional%20headshot%2C%20on%20dark%20background%20with%20subtle%20green%20lighting&width=400&height=500&seq=1&orientation=portrait"
+                alt="James Wilson"
+                class="rounded-lg relative z-10 object-cover w-80 h-96 object-top"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            My <span class="text-primary glow">Projects</span>
+          </h2>
+          <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+          <p class="text-gray-300 max-w-2xl mx-auto">
+            Here are some of my recent projects that showcase my skills and
+            expertise in web development.
+          </p>
+        </div>
+
+        <div class="flex justify-center mb-10">
+          <div
+            class="inline-flex bg-secondary bg-opacity-30 p-1 rounded-full flex-wrap justify-center"
+          >
+            <button
+              class="filter-btn active px-6 py-2 rounded-full bg-primary text-secondary font-medium whitespace-nowrap"
+              data-filter="all"
+            >
+              All
+            </button>
+            <button
+              class="filter-btn px-6 py-2 rounded-full text-white hover:text-primary transition-colors whitespace-nowrap"
+              data-filter="frontend"
+            >
+              Frontend
+            </button>
+            <button
+              class="filter-btn px-6 py-2 rounded-full text-white hover:text-primary transition-colors whitespace-nowrap"
+              data-filter="fullstack"
+            >
+              Full Stack
+            </button>
+            <button
+              class="filter-btn px-6 py-2 rounded-full text-white hover:text-primary transition-colors whitespace-nowrap"
+              data-filter="ui"
+            >
+              UI/UX
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Project 1 -->
+          <div
+            class="project-card group bg-secondary bg-opacity-30 rounded-lg overflow-hidden"
+            data-category="fullstack"
+          >
+            <div class="relative overflow-hidden h-56">
+              <img
+                src="https://readdy.ai/api/search-image?query=e-commerce%20dashboard%20interface%20with%20dark%20theme%20and%20green%20accents%2C%20modern%20UI%20design%2C%20data%20visualization%2C%20clean%20layout%2C%20professional%20web%20application%20screenshot&width=600&height=400&seq=2&orientation=landscape"
+                alt="E-commerce Dashboard"
+                class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-secondary bg-opacity-20 group-hover:bg-opacity-0 transition-all"
+              ></div>
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">E-commerce Dashboard</h3>
+                <span
+                  class="text-xs bg-primary bg-opacity-20 text-primary px-3 py-1 rounded-full"
+                  >Full Stack</span
+                >
+              </div>
+              <p class="text-gray-300 mb-4">
+                A comprehensive dashboard for e-commerce stores with real-time
+                analytics, inventory management, and order processing.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >React</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Node.js</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >MongoDB</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Chart.js</span
+                >
+              </div>
+              <div class="flex justify-between items-center">
+                <a
+                  href="#"
+                  class="text-primary hover:underline flex items-center"
+                >
+                  <span>View Project</span>
+                  <i class="ri-arrow-right-line ri-sm ml-1"></i>
+                </a>
+                <div class="flex space-x-2">
+                  <a
+                    href="#"
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-secondary hover:bg-primary hover:bg-opacity-20 transition-colors"
+                  >
+                    <i class="ri-github-fill ri-lg"></i>
+                  </a>
+                  <a
+                    href="#"
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-secondary hover:bg-primary hover:bg-opacity-20 transition-colors"
+                  >
+                    <i class="ri-external-link-line ri-lg"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div
+            class="project-card group bg-secondary bg-opacity-30 rounded-lg overflow-hidden"
+            data-category="frontend"
+          >
+            <div class="relative overflow-hidden h-56">
+              <img
+                src="https://readdy.ai/api/search-image?query=modern%20crypto%20trading%20platform%20interface%20with%20dark%20theme%20and%20green%20accent%20colors%2C%20professional%20web%20application%20with%20price%20charts%20and%20trading%20panels%2C%20clean%20UI%20design&width=600&height=400&seq=3&orientation=landscape"
+                alt="Crypto Trading Platform"
+                class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-secondary bg-opacity-20 group-hover:bg-opacity-0 transition-all"
+              ></div>
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Crypto Trading Platform</h3>
+                <span
+                  class="text-xs bg-primary bg-opacity-20 text-primary px-3 py-1 rounded-full"
+                  >Frontend</span
+                >
+              </div>
+              <p class="text-gray-300 mb-4">
+                A responsive cryptocurrency trading platform with real-time
+                price updates, interactive charts, and portfolio tracking.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Vue.js</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Vuex</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >TradingView API</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >WebSockets</span
+                >
+              </div>
+              <div class="flex justify-between items-center">
+                <a
+                  href="#"
+                  class="text-primary hover:underline flex items-center"
+                >
+                  <span>View Project</span>
+                  <i class="ri-arrow-right-line ri-sm ml-1"></i>
+                </a>
+                <div class="flex space-x-2">
+                  <a
+                    href="#"
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-secondary hover:bg-primary hover:bg-opacity-20 transition-colors"
+                  >
+                    <i class="ri-github-fill ri-lg"></i>
+                  </a>
+                  <a
+                    href="#"
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-secondary hover:bg-primary hover:bg-opacity-20 transition-colors"
+                  >
+                    <i class="ri-external-link-line ri-lg"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div
+            class="project-card group bg-secondary bg-opacity-30 rounded-lg overflow-hidden"
+            data-category="ui"
+          >
+            <div class="relative overflow-hidden h-56">
+              <img
+                src="https://readdy.ai/api/search-image?query=modern%20fitness%20app%20interface%20with%20dark%20theme%20and%20green%20accent%20colors%2C%20workout%20tracking%20screens%2C%20clean%20mobile%20app%20design%2C%20professional%20UI%2FUX%20design&width=600&height=400&seq=4&orientation=landscape"
+                alt="Fitness Tracker App"
+                class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-secondary bg-opacity-20 group-hover:bg-opacity-0 transition-all"
+              ></div>
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Fitness Tracker App</h3>
+                <span
+                  class="text-xs bg-primary bg-opacity-20 text-primary px-3 py-1 rounded-full"
+                  >UI/UX</span
+                >
+              </div>
+              <p class="text-gray-300 mb-4">
+                A mobile fitness application with workout tracking, nutrition
+                plans, and progress visualization for fitness enthusiasts.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Figma</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >React Native</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Firebase</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Health Kit</span
+                >
+              </div>
+              <div class="flex justify-between items-center">
+                <a
+                  href="#"
+                  class="text-primary hover:underline flex items-center"
+                >
+                  <span>View Project</span>
+                  <i class="ri-arrow-right-line ri-sm ml-1"></i>
+                </a>
+                <div class="flex space-x-2">
+                  <a
+                    href="#"
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-secondary hover:bg-primary hover:bg-opacity-20 transition-colors"
+                  >
+                    <i class="ri-github-fill ri-lg"></i>
+                  </a>
+                  <a
+                    href="#"
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-secondary hover:bg-primary hover:bg-opacity-20 transition-colors"
+                  >
+                    <i class="ri-external-link-line ri-lg"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div
+            class="project-card group bg-secondary bg-opacity-30 rounded-lg overflow-hidden"
+            data-category="fullstack"
+          >
+            <div class="relative overflow-hidden h-56">
+              <img
+                src="https://readdy.ai/api/search-image?query=modern%20task%20management%20application%20with%20dark%20theme%20and%20green%20accent%20colors%2C%20project%20management%20dashboard%2C%20kanban%20board%2C%20professional%20web%20application%20interface&width=600&height=400&seq=5&orientation=landscape"
+                alt="Task Management System"
+                class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-secondary bg-opacity-20 group-hover:bg-opacity-0 transition-all"
+              ></div>
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Task Management System</h3>
+                <span
+                  class="text-xs bg-primary bg-opacity-20 text-primary px-3 py-1 rounded-full"
+                  >Full Stack</span
+                >
+              </div>
+              <p class="text-gray-300 mb-4">
+                A collaborative task management platform with real-time updates,
+                team collaboration features, and progress tracking.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Next.js</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Express</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >PostgreSQL</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Socket.io</span
+                >
+              </div>
+              <div class="flex justify-between items-center">
+                <a
+                  href="#"
+                  class="text-primary hover:underline flex items-center"
+                >
+                  <span>View Project</span>
+                  <i class="ri-arrow-right-line ri-sm ml-1"></i>
+                </a>
+                <div class="flex space-x-2">
+                  <a
+                    href="#"
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-secondary hover:bg-primary hover:bg-opacity-20 transition-colors"
+                  >
+                    <i class="ri-github-fill ri-lg"></i>
+                  </a>
+                  <a
+                    href="#"
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-secondary hover:bg-primary hover:bg-opacity-20 transition-colors"
+                  >
+                    <i class="ri-external-link-line ri-lg"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 5 -->
+          <div
+            class="project-card group bg-secondary bg-opacity-30 rounded-lg overflow-hidden"
+            data-category="frontend"
+          >
+            <div class="relative overflow-hidden h-56">
+              <img
+                src="https://readdy.ai/api/search-image?query=modern%20music%20streaming%20application%20with%20dark%20theme%20and%20green%20accent%20colors%2C%20audio%20player%20interface%2C%20playlist%20management%2C%20professional%20web%20application%20design&width=600&height=400&seq=6&orientation=landscape"
+                alt="Music Streaming App"
+                class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-secondary bg-opacity-20 group-hover:bg-opacity-0 transition-all"
+              ></div>
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Music Streaming App</h3>
+                <span
+                  class="text-xs bg-primary bg-opacity-20 text-primary px-3 py-1 rounded-full"
+                  >Frontend</span
+                >
+              </div>
+              <p class="text-gray-300 mb-4">
+                A music streaming application with personalized recommendations,
+                playlist management, and social sharing features.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >React</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Redux</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Web Audio API</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Spotify API</span
+                >
+              </div>
+              <div class="flex justify-between items-center">
+                <a
+                  href="#"
+                  class="text-primary hover:underline flex items-center"
+                >
+                  <span>View Project</span>
+                  <i class="ri-arrow-right-line ri-sm ml-1"></i>
+                </a>
+                <div class="flex space-x-2">
+                  <a
+                    href="#"
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-secondary hover:bg-primary hover:bg-opacity-20 transition-colors"
+                  >
+                    <i class="ri-github-fill ri-lg"></i>
+                  </a>
+                  <a
+                    href="#"
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-secondary hover:bg-primary hover:bg-opacity-20 transition-colors"
+                  >
+                    <i class="ri-external-link-line ri-lg"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 6 -->
+          <div
+            class="project-card group bg-secondary bg-opacity-30 rounded-lg overflow-hidden"
+            data-category="ui"
+          >
+            <div class="relative overflow-hidden h-56">
+              <img
+                src="https://readdy.ai/api/search-image?query=modern%20real%20estate%20website%20with%20dark%20theme%20and%20green%20accent%20colors%2C%20property%20listings%2C%20map%20integration%2C%20professional%20web%20design%20with%20clean%20layout&width=600&height=400&seq=7&orientation=landscape"
+                alt="Real Estate Platform"
+                class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-secondary bg-opacity-20 group-hover:bg-opacity-0 transition-all"
+              ></div>
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Real Estate Platform</h3>
+                <span
+                  class="text-xs bg-primary bg-opacity-20 text-primary px-3 py-1 rounded-full"
+                  >UI/UX</span
+                >
+              </div>
+              <p class="text-gray-300 mb-4">
+                A comprehensive real estate platform with property listings,
+                virtual tours, and interactive map-based property search.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Figma</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Adobe XD</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >Prototype</span
+                >
+                <span
+                  class="text-xs bg-secondary bg-opacity-80 text-gray-300 px-3 py-1 rounded-full"
+                  >User Testing</span
+                >
+              </div>
+              <div class="flex justify-between items-center">
+                <a
+                  href="#"
+                  class="text-primary hover:underline flex items-center"
+                >
+                  <span>View Project</span>
+                  <i class="ri-arrow-right-line ri-sm ml-1"></i>
+                </a>
+                <div class="flex space-x-2">
+                  <a
+                    href="#"
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-secondary hover:bg-primary hover:bg-opacity-20 transition-colors"
+                  >
+                    <i class="ri-github-fill ri-lg"></i>
+                  </a>
+                  <a
+                    href="#"
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-secondary hover:bg-primary hover:bg-opacity-20 transition-colors"
+                  >
+                    <i class="ri-external-link-line ri-lg"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Experience Timeline Section -->
+    <section id="experience" class="py-20 bg-secondary bg-opacity-50">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Work <span class="text-primary glow">Experience</span>
+          </h2>
+          <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+          <p class="text-gray-300 max-w-2xl mx-auto">
+            My professional journey in the world of web development.
+          </p>
+        </div>
+
+        <div class="relative max-w-4xl mx-auto">
+          <div class="timeline-line"></div>
+
+          <!-- Timeline Item 1 -->
+          <div class="timeline-item mb-16 relative">
+            <div class="flex flex-col md:flex-row items-center">
+              <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0 md:text-right">
+                <div class="bg-secondary bg-opacity-30 p-6 rounded-lg">
+                  <span class="text-primary font-semibold">2022 - Present</span>
+                  <h3 class="text-xl font-bold mt-2 mb-3">
+                    Senior Frontend Developer
+                  </h3>
+                  <h4 class="text-gray-300 font-medium mb-3">
+                    TechNova Solutions
+                  </h4>
+                  <p class="text-gray-400">
+                    Leading the frontend development team in building
+                    enterprise-level applications. Implementing modern
+                    architecture patterns and optimizing performance for
+                    large-scale applications.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="hidden timeline-dot w-10 h-10 bg-secondary border-2 border-primary rounded-full lg:flex items-center justify-center z-10 mx-auto"
+              >
+                <div class="w-4 h-4 bg-primary rounded-full"></div>
+              </div>
+
+              <div class="md:w-1/2 md:pl-12 md:text-left"></div>
+            </div>
+          </div>
+
+          <!-- Timeline Item 2 -->
+          <div class="timeline-item mb-16 relative">
+            <div class="flex flex-col md:flex-row items-center">
+              <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0 md:text-right"></div>
+
+              <div
+                class="hidden timeline-dot w-10 h-10 bg-secondary border-2 border-primary rounded-full lg:flex items-center justify-center z-10 mx-auto"
+              >
+                <div class="w-4 h-4 bg-primary rounded-full"></div>
+              </div>
+
+              <div class="md:w-1/2 md:pl-12 md:text-left">
+                <div class="bg-secondary bg-opacity-30 p-6 rounded-lg">
+                  <span class="text-primary font-semibold">2020 - 2022</span>
+                  <h3 class="text-xl font-bold mt-2 mb-3">
+                    Full Stack Developer
+                  </h3>
+                  <h4 class="text-gray-300 font-medium mb-3">
+                    Innovate Digital
+                  </h4>
+                  <p class="text-gray-400">
+                    Developed and maintained various web applications using
+                    React, Node.js, and MongoDB. Collaborated with UX designers
+                    to implement responsive and intuitive user interfaces.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline Item 3 -->
+          <div class="timeline-item mb-16 relative">
+            <div class="flex flex-col md:flex-row items-center">
+              <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0 md:text-right">
+                <div class="bg-secondary bg-opacity-30 p-6 rounded-lg">
+                  <span class="text-primary font-semibold">2018 - 2020</span>
+                  <h3 class="text-xl font-bold mt-2 mb-3">
+                    Frontend Developer
+                  </h3>
+                  <h4 class="text-gray-300 font-medium mb-3">
+                    WebCraft Agency
+                  </h4>
+                  <p class="text-gray-400">
+                    Created responsive websites and web applications for various
+                    clients. Specialized in JavaScript frameworks and modern CSS
+                    techniques to deliver exceptional user experiences.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="hidden timeline-dot w-10 h-10 bg-secondary border-2 border-primary rounded-full lg:flex items-center justify-center z-10 mx-auto"
+              >
+                <div class="w-4 h-4 bg-primary rounded-full"></div>
+              </div>
+
+              <div class="md:w-1/2 md:pl-12 md:text-left"></div>
+            </div>
+          </div>
+
+          <!-- Timeline Item 4 -->
+          <div class="timeline-item relative">
+            <div class="flex flex-col md:flex-row items-center">
+              <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0 md:text-right"></div>
+
+              <div
+                class="hidden timeline-dot w-10 h-10 bg-secondary border-2 border-primary rounded-full lg:flex items-center justify-center z-10 mx-auto"
+              >
+                <div class="w-4 h-4 bg-primary rounded-full"></div>
+              </div>
+
+              <div class="md:w-1/2 md:pl-12 md:text-left">
+                <div class="bg-secondary bg-opacity-30 p-6 rounded-lg">
+                  <span class="text-primary font-semibold">2016 - 2018</span>
+                  <h3 class="text-xl font-bold mt-2 mb-3">
+                    Junior Web Developer
+                  </h3>
+                  <h4 class="text-gray-300 font-medium mb-3">
+                    Digital Creations
+                  </h4>
+                  <p class="text-gray-400">
+                    Started my professional journey building websites using
+                    HTML, CSS, and JavaScript. Gained experience in responsive
+                    design and basic backend development with PHP.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Get In <span class="text-primary glow">Touch</span>
+          </h2>
+          <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+          <p class="text-gray-300 max-w-2xl mx-auto">
+            Have a project in mind or want to discuss potential opportunities?
+            Feel free to reach out!
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div>
+            <div class="bg-secondary bg-opacity-30 p-8 rounded-lg mb-8">
+              <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+
+              <div class="flex items-start mb-6">
+                <div
+                  class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-20 rounded-lg mr-4"
+                >
+                  <i class="ri-map-pin-line ri-lg text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold mb-1">Location</h4>
+                  <p class="text-gray-300">San Francisco, California, USA</p>
+                </div>
+              </div>
+
+              <div class="flex items-start mb-6">
+                <div
+                  class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-20 rounded-lg mr-4"
+                >
+                  <i class="ri-mail-line ri-lg text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold mb-1">Email</h4>
+                  <a
+                    href="mailto:james@wilson.dev"
+                    class="text-gray-300 hover:text-primary transition-colors"
+                    >james@wilson.dev</a
+                  >
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div
+                  class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-20 rounded-lg mr-4"
+                >
+                  <i class="ri-phone-line ri-lg text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold mb-1">Phone</h4>
+                  <a
+                    href="tel:+14155552671"
+                    class="text-gray-300 hover:text-primary transition-colors"
+                    >+1 (415) 555-2671</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-secondary bg-opacity-30 p-8 rounded-lg">
+              <h3 class="text-2xl font-bold mb-6">Find Me On</h3>
+              <div class="flex space-x-4">
+                <a
+                  href="#"
+                  class="social-icon w-12 h-12 flex items-center justify-center bg-secondary rounded-lg text-white hover:text-primary transition-all"
+                >
+                  <i class="ri-github-fill ri-lg"></i>
+                </a>
+                <a
+                  href="#"
+                  class="social-icon w-12 h-12 flex items-center justify-center bg-secondary rounded-lg text-white hover:text-primary transition-all"
+                >
+                  <i class="ri-linkedin-fill ri-lg"></i>
+                </a>
+                <a
+                  href="#"
+                  class="social-icon w-12 h-12 flex items-center justify-center bg-secondary rounded-lg text-white hover:text-primary transition-all"
+                >
+                  <i class="ri-twitter-fill ri-lg"></i>
+                </a>
+                <a
+                  href="#"
+                  class="social-icon w-12 h-12 flex items-center justify-center bg-secondary rounded-lg text-white hover:text-primary transition-all"
+                >
+                  <i class="ri-dribbble-fill ri-lg"></i>
+                </a>
+                <a
+                  href="#"
+                  class="social-icon w-12 h-12 flex items-center justify-center bg-secondary rounded-lg text-white hover:text-primary transition-all"
+                >
+                  <i class="ri-behance-fill ri-lg"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-secondary bg-opacity-30 p-8 rounded-lg">
+            <h3 class="text-2xl font-bold mb-6">Send Me a Message</h3>
+            <form id="contact-form">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <label for="name" class="block text-sm font-medium mb-2"
+                    >Name</label
+                  >
+                  <input
+                    type="text"
+                    id="name"
+                    class="form-input w-full px-4 py-3 bg-secondary bg-opacity-50 rounded-lg text-white focus:outline-none"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="email" class="block text-sm font-medium mb-2"
+                    >Email</label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    class="form-input w-full px-4 py-3 bg-secondary bg-opacity-50 rounded-lg text-white focus:outline-none"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="mb-6">
+                <label for="subject" class="block text-sm font-medium mb-2"
+                  >Subject</label
+                >
+                <input
+                  type="text"
+                  id="subject"
+                  class="form-input w-full px-4 py-3 bg-secondary bg-opacity-50 rounded-lg text-white focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div class="mb-6">
+                <label for="message" class="block text-sm font-medium mb-2"
+                  >Message</label
+                >
+                <textarea
+                  id="message"
+                  rows="5"
+                  class="form-input w-full px-4 py-3 bg-secondary bg-opacity-50 rounded-lg text-white focus:outline-none resize-none"
+                  required
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="bg-primary text-secondary px-8 py-3 rounded-button font-medium hover:bg-opacity-80 transition-all flex items-center whitespace-nowrap"
+              >
+                <span>Send Message</span>
+                <i class="ri-send-plane-fill ri-lg ml-2"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 bg-secondary">
+      <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div
+            class="mb-6 md:mb-0 flex flex-col items-center lg:items-start justify-center"
+          >
+            <a href="#" class="text-primary font-['Pacifico'] text-2xl"
+              >Taufiq HA</a
+            >
+            <p class="text-gray-400 mt-2">
+              Creating exceptional web experiences.
+            </p>
+          </div>
+
+          <div class="flex flex-col items-center md:items-end">
+            <p class="text-gray-400 mb-2">
+              © 2025 James Wilson. All rights reserved.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="text-gray-400 hover:text-primary transition-colors"
+                >Privacy Policy</a
+              >
+              <a
+                href="#"
+                class="text-gray-400 hover:text-primary transition-colors"
+                >Terms of Service</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button
+      id="back-to-top"
+      class="fixed bottom-6 right-6 w-12 h-12 bg-primary text-secondary rounded-full flex items-center justify-center opacity-0 invisible transition-all z-50"
+    >
+      <i class="ri-arrow-up-line ri-lg"></i>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Typing effect
+        const texts = [
+          "Web Developer",
+          "Frontend Specialist",
+          "UI/UX Enthusiast",
+          "Problem Solver",
+        ];
+        let count = 0;
+        let index = 0;
+        let currentText = "";
+        let letter = "";
+        let isDeleting = false;
+
+        function type() {
+          currentText = texts[count];
+
+          if (isDeleting) {
+            letter = currentText.slice(0, --index);
+          } else {
+            letter = currentText.slice(0, ++index);
+          }
+
+          document.getElementById("typing-text").textContent = letter;
+
+          if (!isDeleting && letter.length === currentText.length) {
+            isDeleting = true;
+            setTimeout(type, 2000); // Jeda setelah selesai mengetik
+          } else if (isDeleting && letter.length === 0) {
+            isDeleting = false;
+            count = (count + 1) % texts.length; // Loop ke awal jika mencapai akhir array
+            setTimeout(type, 500); // Jeda sebelum mulai mengetik teks berikutnya
+          } else {
+            const speed = isDeleting ? 100 : 150;
+            setTimeout(type, speed); // Kecepatan mengetik/menghapus
+          }
+        }
+
+        // Mulai efek typing
+        type();
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById("menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuToggle.addEventListener("click", function () {
+          mobileMenu.classList.toggle("hidden");
+          if (
+            menuToggle.querySelector("i").classList.contains("ri-menu-line")
+          ) {
+            menuToggle.querySelector("i").classList.remove("ri-menu-line");
+            menuToggle.querySelector("i").classList.add("ri-close-line");
+          } else {
+            menuToggle.querySelector("i").classList.remove("ri-close-line");
+            menuToggle.querySelector("i").classList.add("ri-menu-line");
+          }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
+              mobileMenu.classList.add("hidden");
+              menuToggle.querySelector("i").classList.remove("ri-close-line");
+              menuToggle.querySelector("i").classList.add("ri-menu-line");
+            }
+
+            const targetId = this.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+
+        // Animate skill bars on scroll
+        const skillBars = document.querySelectorAll(".skill-progress");
+
+        function animateSkillBars() {
+          skillBars.forEach((bar) => {
+            const barPosition = bar.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.2;
+
+            if (barPosition < screenPosition) {
+              const width = bar.getAttribute("data-width");
+              bar.style.width = width;
+            }
+          });
+        }
+
+        // Animate timeline items on scroll
+        const timelineItems = document.querySelectorAll(".timeline-item");
+
+        function animateTimelineItems() {
+          timelineItems.forEach((item) => {
+            const itemPosition = item.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.2;
+
+            if (itemPosition < screenPosition) {
+              item.classList.add("visible");
+            }
+          });
+        }
+
+        // Project filtering
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        const projectCards = document.querySelectorAll(".project-card");
+
+        filterButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            // Remove active class from all buttons
+            filterButtons.forEach((btn) => {
+              btn.classList.remove("active", "bg-primary", "text-secondary");
+              btn.classList.add("text-white", "hover:text-primary");
+            });
+
+            // Add active class to clicked button
+            this.classList.add("active", "bg-primary", "text-secondary");
+            this.classList.remove("text-white", "hover:text-primary");
+
+            const filter = this.getAttribute("data-filter");
+
+            projectCards.forEach((card) => {
+              if (
+                filter === "all" ||
+                card.getAttribute("data-category") === filter
+              ) {
+                card.style.display = "block";
+                setTimeout(() => {
+                  card.style.opacity = "1";
+                  card.style.transform = "translateY(0)";
+                }, 100);
+              } else {
+                card.style.opacity = "0";
+                card.style.transform = "translateY(20px)";
+                setTimeout(() => {
+                  card.style.display = "none";
+                }, 300);
+              }
+            });
+          });
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById("back-to-top");
+
+        function toggleBackToTopButton() {
+          if (window.scrollY > 500) {
+            backToTopButton.classList.remove("opacity-0", "invisible");
+            backToTopButton.classList.add("opacity-100", "visible");
+          } else {
+            backToTopButton.classList.remove("opacity-100", "visible");
+            backToTopButton.classList.add("opacity-0", "invisible");
+          }
+        }
+
+        backToTopButton.addEventListener("click", function () {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+
+        // Custom cursor
+        const cursor = document.querySelector(".cursor");
+        const cursorFollower = document.querySelector(".cursor-follower");
+
+        document.addEventListener("mousemove", function (e) {
+          cursor.style.left = e.clientX + "px";
+          cursor.style.top = e.clientY + "px";
+
+          setTimeout(() => {
+            cursorFollower.style.left = e.clientX + "px";
+            cursorFollower.style.top = e.clientY + "px";
+          }, 50);
+        });
+
+        document.addEventListener("mousedown", function () {
+          cursor.style.transform = "translate(-50%, -50%) scale(0.8)";
+          cursorFollower.style.transform = "translate(-50%, -50%) scale(0.8)";
+        });
+
+        document.addEventListener("mouseup", function () {
+          cursor.style.transform = "translate(-50%, -50%) scale(1)";
+          cursorFollower.style.transform = "translate(-50%, -50%) scale(1)";
+        });
+
+        // Hover effect for links and buttons
+        const links = document.querySelectorAll("a, button");
+
+        links.forEach((link) => {
+          link.addEventListener("mouseenter", function () {
+            cursor.style.width = "30px";
+            cursor.style.height = "30px";
+            cursor.style.backgroundColor = "rgba(0, 255, 0, 0.2)";
+            cursorFollower.style.width = "50px";
+            cursorFollower.style.height = "50px";
+          });
+
+          link.addEventListener("mouseleave", function () {
+            cursor.style.width = "20px";
+            cursor.style.height = "20px";
+            cursor.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
+            cursorFollower.style.width = "40px";
+            cursorFollower.style.height = "40px";
+          });
+        });
+
+        // Form submission
+        const contactForm = document.getElementById("contact-form");
+
+        contactForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Get form values
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const subject = document.getElementById("subject").value;
+          const message = document.getElementById("message").value;
+
+          // Here you would normally send the form data to a server
+          console.log("Form submitted:", { name, email, subject, message });
+
+          // Reset form
+          contactForm.reset();
+
+          // Show success message (in a real app)
+          alert("Thank you for your message! I will get back to you soon.");
+        });
+
+        // Event listeners for scroll animations
+        window.addEventListener("scroll", function () {
+          animateSkillBars();
+          animateTimelineItems();
+          toggleBackToTopButton();
+        });
+
+        // Initial call to set initial states
+        animateSkillBars();
+        animateTimelineItems();
+        toggleBackToTopButton();
+      });
+    </script>
+  </body>
+</html>
